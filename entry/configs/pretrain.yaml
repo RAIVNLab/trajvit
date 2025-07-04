@@ -1,0 +1,174 @@
+# (2) this also accepts a two-element sublist, where the 1st is the anno json file as above (1), the 2nd is image_root, it will be joined with the `image` (image path)
+data_root: ${oc.env:SL_DATA_DIR}/videodata
+anno_root: ${oc.env:SL_DATA_DIR}/metadata
+available_corpus:
+  # for demo purpose
+  msrvtt_train: ['${anno_root}/msrvtt_train.json', '${data_root}/MSRVTT/videos/all', video]
+  msrvtt_test: ['${anno_root}/msrvtt_test.json', '${data_root}/MSRVTT/videos/all', video]
+
+  # image set
+  coco: ['${anno_root}/coco_train_captions.json', '/', image]
+  cc3m: ['${anno_root}/cc3m.json', '/', image]
+  cc12m: ['${anno_root}/cc12m.json', '/', image]
+  datacomp: ['${anno_root}/datacomp.json', '/', image]
+  coco_val: ['${anno_root}/coco_val_captions.json', '/', image]
+
+  # small finetuning set
+  ssv2_train: ['${anno_root}/ssv2_train.json', '/', video]
+  k700_train: ['${anno_root}/k700_train.json', '/', video]
+  activitynet_train: ['${anno_root}/activitynet_train.json', '/', video]
+  charade_train: ['${anno_root}/charade_train.json', '/', video]
+  msvd_train: ['${anno_root}/msvd_train.json', '/', video]
+  ufc_train: ['${anno_root}/ufc_train.json', '/', video]
+
+  # test set
+  k700_test: ['${anno_root}/k700_val.json', '/', video]
+  vatex_test: ['${anno_root}/vatex_val.json', '/', video]
+  msvd_test: ['${anno_root}/msvd_val.json', '${data_root}/MSVDClips', video]
+  ssv2_test: ['${anno_root}/ssv2_val.json', '/', video]
+  k400_test: ['${anno_root}/k700_val.json', '/', video]
+  ufc_test: ['${anno_root}/ufc_val.json', '/', video]
+  activitynet_test: ['${anno_root}/activitynet_val.json', '/', video]
+  youcook_test: ['${anno_root}/youcook2_val_dense.json', '/', video]
+  charade_test: ['${anno_root}/charade_val.json', '/', video]
+
+  # pretraining set
+  panda_short: ['${anno_root}/panda_train_short.json', '${data_root}/gcp/panda70m_dense_caption', video]
+  panda_4m: ['${anno_root}/panda_4m.json', '${data_root}/gcp/panda70m_dense_caption', video]
+  panda_full: ['${anno_root}/panda_train.json', '${data_root}/gcp/panda70m_dense_caption', video]
+  image_only:
+    - ${available_corpus.cc3m}
+    - ${available_corpus.cc12m}
+    - ${available_corpus.datacomp}
+  basedata:
+    - ${available_corpus.panda_4m}
+  largedata:
+    - ${available_corpus.panda_full}
+    - ${available_corpus.datacomp}
+
+train_corpus: basedata
+train_file: ${available_corpus[${train_corpus}]}
+test_corpus: all
+test_file:
+  activitynet: ['${available_corpus.activitynet_test}', false]
+  msrvtt: ['${available_corpus.msrvtt_test}', false]
+  charade: ['${available_corpus.charade_test}', false]
+test_file_image:
+  imagenet_val: ['${available_corpus.imagenet_test}', true]
+  coco_val: ['${available_corpus.coco_val}', false]
+
+
+text_encoder: bert-base-uncased
+bert_config: configs/config_bert.json
+vit_type: trajvit  # items in ${vit_zoo}
+vit_zoo:  # from huggingface
+  vit: google/vit-large-patch16-224-in21k 
+  vit3d: None
+  trajvit: None
+  token_squeezer: None
+vit_name_or_pretrained_path: ${vit_zoo[${vit_type}]}
+add_temporal_embed: False  # whether to add temporal embed to encoded frames
+
+image_res: 224
+mask_down_factor: 4
+embed_dim: 256
+
+video_input:  # input
+  num_frames: 16
+  reader: decord  # one of [decord, av]
+  sample_type: middle # [rand, middle]
+  num_frames_test: 16  # num_frames during inference/test
+  sample_type_test: middle
+  version_ext: _v0
+max_txt_l:
+  image: 77  # TODO
+  video: 77  # TODO
+traj_model:
+  model_name: vit-large
+  app_perceiver: true
+  pretrained: false
+  pool: cls
+  tokenizer_type: resnet
+  resnet_pool: sum
+  roi_size: 0
+  embed_dim: 512
+traj_pos:
+  model_type: perceiver  #  mlp, sincos
+  use_bounding_box: false
+perceiver:
+  num_latent: 1
+  depth: 2
+  use_rotary: true
+  use_latent_transformer: false
+  concat_latent: false
+token_learner:
+  num_tokens: 64 
+  num_groups: 4 
+  token_learner_layer_pos_ratio: 0.5
+
+batch_size:
+  image: 128
+  video: 8
+batch_size_test:
+  image: 64
+  video: 8
+k_test: 128
+temp: 0.07
+mlm_prob: 0.5
+loss_weight:
+  itc: 1.0
+  mlm: 1.0
+  itm: 1.0
+  icl: 1.0
+itm_hard_neg: True
+
+optimizer: 
+  opt: adamW
+  lr: 1e-4
+  opt_betas: [0.9, 0.999]  # default
+  weight_decay: 0.02
+  max_grad_norm: 1  # requires a positive float, use -1 to disable
+  different_lr:  # use a different lr for some modules, e.g., larger lr for new modules
+    enable: False
+    module_names: [temporal_vision_encoder, ]
+    lr: 1e-4
+  finetune_lr: 1e-5
+
+scheduler: 
+  sched: cosine
+  epochs: 30
+  min_lr_multi: 0.01  # min_lr will be `optimizer.lr * min_lr_multi`
+  warmup_epochs: 1  # float
+  finetune_epochs: 0
+
+output_dir: None # output dir
+resume: False  # if True, load optimizer and scheduler states as well
+partial_resume: False
+pretrained_path: None
+image_pretrained_path: None
+load_vision_only: False
+evaluate: False
+# `eval_frame_ensemble': how do we aggregate scores if `video_input.num_frames_test' > `video_input.num_frames'
+# `concat': concat frames before input to multi-modal encoder, i.e., early fusion
+# `mean', `max', `lse': mean/max/lse-pool scores after multi-modal encoder, i.e., late fusion, as in ClipBERT
+eval_frame_ensemble: concat  # [concat, max, mean, lse]
+eval_x_only: False
+eval_offload: True  # offload image gpu tensors to cpu to save memory, when meet OOM error.
+device: cuda
+seed: 42
+log_freq: 30
+eval_freq: 3
+save_freq: 3
+distributed: True
+fp16: True
+debug: False
+num_workers: 8
+num_workers_test: 4
+onlyapp: False
+
+wandb:
+  enable: True
+  entity: None   # username or team name to store the runs, see https://docs.wandb.ai/ref/python/init
+  project: videotok-pretrain  # setup in your command line
+  group: cvpr
+

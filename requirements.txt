@@ -1,0 +1,12 @@
+opencv-python
+av==12.3.0
+wandb
+imageio==2.34.2
+easydict
+einops
+scenedetect
+transformers==4.44.2
+rotary-embedding-torch
+decord
+einops-exts
+imageio-ffmpeg
