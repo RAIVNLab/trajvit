@@ -1,0 +1,421 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="description" content="One Trajectory, One Token: Grounded Video Tokenization via Panoptic Sub-object Trajectory">
+  <meta property="og:title" content="TrajViT">
+  <meta property="og:description" content="One Trajectory, One Token: Grounded Video Tokenization via Panoptic Sub-object Trajectory">
+  <meta property="twitter:title" content="TrajViT">
+  <meta property="twitter:description" content="One Trajectory, One Token: Grounded Video Tokenization via Panoptic Sub-object Trajectory">
+  <meta property="og:type" content="website">
+  <meta name="keywords" content="video tokenization, video understanding, representation learning, vision-lanugage model">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>TrajViT</title>
+
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-D65ZW4CJYF"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+
+    function gtag() {
+      dataLayer.push(arguments);
+    }
+    gtag('js', new Date());
+
+    gtag('config', 'G-D65ZW4CJYF');
+  </script>
+
+  <link href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro" rel="stylesheet">
+
+  <link rel="stylesheet" href="./static/css/bulma.min.css">
+  <link rel="stylesheet" href="./static/css/bulma-carousel.min.css">
+  <link rel="stylesheet" href="./static/css/bulma-slider.min.css">
+  <link rel="stylesheet" href="./static/css/fontawesome.all.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
+  <link rel="stylesheet" href="./static/css/index.css">
+
+  <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script> -->
+  <script src="./static/js/jquery-3.6.4.min.js"></script>
+  <script defer src="./static/js/fontawesome.all.min.js"></script>
+  <script src="./static/js/bulma-carousel.min.js"></script>
+  <script src="./static/js/bulma-slider.min.js"></script>
+  <script src="./static/js/lazy.js"></script>
+  <script src="./static/js/faster.js"></script>
+  <script src="./static/js/index.js"></script>
+</head>
+
+<body>
+  <section class="hero">
+    <div class="hero-body">
+      <div class="container is-max-desktop">
+        <div class="columns is-centered">
+          <div class="column has-text-centered">
+            <h1 class="title is-2 publication-title">One Trajectory, One Token:<p>Grounded Video Tokenization via Panoptic Sub-object Trajectory<p\>
+            </h1>
+            <div class="is-size-5 publication-authors">
+              <span class="author-block">
+                <a href="https://hellomuffin.github.io/">Chenhao Zheng</a><sup>1,2</sup>, </span>
+              <span class="author-block">
+                <a href="https://jieyuz2.github.io/">Jieyu Zhang</a><sup>1,2</sup>, </span>
+              <span class="author-block">
+                <a href="https://homes.cs.washington.edu/~mrsalehi/">Mohammadreza Salehi</a><sup>1,2</sup>, </span>
+              <span class="author-block">
+              <span class="author-block">
+                <a href="https://uwgzq.github.io/">Ziqi Gao</a><sup>1</sup>, </span>
+              <span class="author-block">
+              <span class="author-block">
+                <a href="">Vishnu Iyengar</a><sup>1</sup>, </span>
+              <span class="author-block">
+              <span class="author-block">
+                <a href="">Norimasa Kobori</a><sup>3</sup>, </span>
+              <span class="author-block">
+              <span class="author-block">
+                <a href="">Quan Kong</a><sup>3</sup>, </span>
+              <span class="author-block">
+              <span class="author-block">
+                <a href="https://www.ranjaykrishna.com/index.html">Ranjay Krishna</a><sup>1,2</sup> </span>
+              <span class="author-block">
+            </div>
+
+            <div class="is-size-5 publication-authors">
+              <span class="author-block"><sup>1</sup>University of Washington &nbsp; </span>
+              <span class="author-block"><sup>2</sup>Allen Institute for Artificial Intelligence &nbsp; </span>
+              <span class="author-block"><sup>3</sup>Woven by Toyota, Inc &nbsp; </span>
+            </div>
+
+            <!-- <h1 style="font-size:24px;">
+              <span style="color:black;">NeurIPS'24</span>
+              <span style="color:red;">Spotlight</span>
+            </h1> -->
+
+            <div class="column has-text-centered">
+              <div class="publication-links">
+                <!-- PDF Link. -->
+                <span class="link-block">
+                  <a href="https://arxiv.org/abs/2505.23617" class="external-link button is-normal is-rounded is-dark">
+                    <span class="icon">
+                      <i class="fas fa-file-pdf"></i>
+                    </span>
+                    <span>Paper</span>
+                  </a>
+                </span>
+                <!-- Video Link. -->
+                <!-- <span class="link-block">
+                  <a href="" class="external-link button is-normal is-rounded is-dark">
+                    <span class="icon">
+                      <i class="fab fa-youtube"></i>
+                    </span>
+                    <span>Video</span>
+                  </a>
+                </span> -->
+                <!-- Code Link. -->
+                <!-- <span class="link-block">
+                  <a href="https://github.com/penn-waves-lab/AVR" class="external-link button is-normal is-rounded is-dark">
+                    <span class="icon">
+                      <i class="fab fa-github"></i>
+                    </span>
+                    <span>AVR (model) Code</span>
+                  </a>
+                </span> -->
+
+                <span class="link-block">
+                  <a href="" class="external-link button is-normal is-rounded is-dark">
+                    <span class="icon">
+                      <i class="fab fa-github"></i>
+                    </span>
+                    <span>Code (Comming Soon)</span>
+                  </a>
+                </span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <style>
+    .video-grid {
+      display: grid;
+      grid-template-columns: repeat(1, 1fr);
+      /* Three columns */
+      grid-template-rows: repeat(1, 1fr);
+      /* Two rows */
+      gap: 0px 4px;
+      /* Gap between videos */
+      width: 65%;
+      /* Set the container width to 80% */
+      margin: 0 auto;
+      /* Center the container horizontally */
+    }
+
+    .video-grid video {
+      width: 100%;
+      /* Videos fill the container width */
+      height: auto;
+    }
+  </style>
+
+  <div class="container" style="max-width: 60%;">
+    <div class="columns is-centered">
+      <div style="background-color: #f9f9f9; border-left: 2px solid #3273dc; padding: 10px; margin-bottom: 10px;">
+        <p style="font-size:20px;"><strong>TL;DR:</strong> We propose to tokenize video with panoptic sub-object trajectories, significantly surpassing traditional way of space-time patch tokenization by a large margin in video understanding tasks while using 10x less tokens
+      </div>
+    </div>
+  </div>
+
+  <!-- <br><br> -->
+
+  <!-- Example YouTube video embed -->
+  <!-- <div class="columns is-centered has-text-centered">
+    <h2 class="title is-3"> Presentation Video</h2>
+  </div>
+  <center><iframe width="720" height="400" src="https://www.youtube.com/embed/NAnhT2frQLo" frameborder="0"
+      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen>
+    </iframe>
+  </center> -->
+
+
+  <section class="section">
+    <div class="container" style="max-width: 90%;">
+      <div class="columns is-centered has-text-centered">
+        <div class="column is-four-fifths">
+          <h2 class="title is-3">Abstract</h2>
+          <!-- <div class="columns is-centered">
+            <div style="background-color: #f9f9f9; border-left: 2px solid #3273dc; padding: 10px; margin-bottom: 10px;">
+              <p style="font-size:20px;"><strong>Tl;DR:</strong> We propose <b>acoustic volume rendering</b> for
+                impulse response rendering. Wave propagation physics is incorporated into the acoustic volume rendering
+                to ensure multi-pose consistency for acoustic signal
+            </div>
+          </div> -->
+
+          <div class="content has-text-justified">
+            <p style="font-size:18px;">
+              Effective video tokenization is critical for scaling transformer models for long videos. Current approaches tokenize videos using space-time patches, leading to excessive tokens and computational inefficiencies. The best token reduction strategies degrade performance and barely reduce the number of tokens when the camera moves. We introduce grounded video tokenization, a paradigm that organizes tokens based on panoptic sub-object trajectories rather than fixed patches. Our method aligns with fundamental perceptual principles, ensuring that tokenization reflects scene complexity rather than video duration. We propose TrajViT, a video encoder that extracts object trajectories and converts them into semantically meaningful tokens, significantly reducing redundancy while maintaining temporal coherence. Trained with contrastive learning, TrajViT significantly outperforms space-time ViT (ViT3D) across multiple video understanding benchmarks, e.g., TrajViT outperforms ViT3D by a large margin of 6% top-5 recall in average at video-text retrieval task with 10x token deduction. We also show TrajViT as a stronger model than ViT3D for being the video encoder for modern VideoLLM, obtaining an average of 5.2% performance improvement across 6 VideoQA benchmarks while having 4x faster training time and 18x less inference FLOPs. TrajViT is the first efficient encoder to consistently outperform ViT3D across diverse video analysis tasks, making it a robust and scalable solution.
+            </p>
+          </div>
+        </div>
+      </div>
+  </section>
+
+
+  <section>
+    <div class="columns is-centered has-text-centered">
+      <h2 class="title is-3">Method</h2>
+    </div>
+
+    
+    <br>
+        <div>
+          <center>
+          <img src="static/images/method.png" width="900" class="interpolation-image" alt="Interpolate start reference image." />
+        </div>
+        </center>
+        <br>
+    <div class="container is-max-desktop">
+      <div class="columns is-centered has-text-centered">
+        <div class="content has-text-justified">
+          <p style="font-size:18px;">
+            <strong>(1)</strong> A trajectory generation pipeline that generates trajectories for all sub-objects in a video, integrated from off-the-shell segmenter and tracker through a parallelizable algorithm (details in paper). </b>
+            <br>
+            <strong>(2)</strong> A trajectory encoder that encode dynamic trajectories into fixed-size tokens
+            <br>
+            <strong>(3)</strong> The trajectory tokens serves as input to the transformer encoder. We train the encoder with CLIP objective.
+          </p>
+        </div>
+      </div>
+    </div>
+    </div>
+    <br>
+
+
+
+
+    <br><br>
+    <br>
+
+
+    <section>
+      <div class="columns is-centered has-text-centered">
+        <h2 class="title is-3"> Example of generated trajectories</h2>
+      </div>
+      <br>
+      <div class="container is-max-desktop">
+      </div>
+      </div>
+
+      <br>
+      <!-- <center> <video width="640" height="360" controls>
+          <source src="static/videos/demo_spatial_seeuagain.mp4" type="video/mp4">
+        </video></center> -->
+
+
+<center>
+  <img src="static/videos/breakdance_all.gif" width="640" height="360">
+  <img src="static/videos/car-roundabout_all.gif" width="640" height="360">
+</center>
+<center>
+  <img src="static/videos/loading_all.gif" width="640" height="360">
+  <img src="static/videos/scooter-gray_all.gif" width="640" height="360">
+</center>
+    </section>
+    <br><br>
+
+
+<section>
+    <div class="columns is-centered has-text-centered">
+      <h2 class="title is-3">Regular Video understanding Tasks</h2>
+    </div>
+
+    <br>
+        <div>
+          <center>
+          <img src="static/images/understanding_tasks.png" width="900" class="interpolation-image" alt="Interpolate start reference image." />
+        </div>
+        </center>
+        <br>
+    <div class="container is-max-desktop">
+      <div class="columns is-centered has-text-centered">
+        <div class="content has-text-justified">
+          We compare TrajViT with standard ViT with space-time patch tokens (ViT3D) and state-of-the-art token merging methods on a wide range of video understanding tasks, including  action classification, video-text retrieval, and spatial-temporal detection.
+          It outperforms VIT3D in all tasks, while all token merging baselines underperform ViT3D on average.
+        </div>
+      </div>
+    </div>
+    </div>
+    <br>
+    </section>
+    <br><br>
+
+  
+
+<section>
+    <div class="columns is-centered has-text-centered">
+      <h2 class="title is-3">Efficiency Analysis</h2>
+    </div>
+
+    <br>
+        <div>
+          <center>
+          <img src="static/images/efficiency.png" width="900" class="interpolation-image" alt="Interpolate start reference image." />
+        </div>
+        </center>
+        <br>
+    <div class="container is-max-desktop">
+      <div class="columns is-centered has-text-centered">
+        <div class="content has-text-justified">
+          We show efficiency comparison in four different axis under varying frame number (in ActivityNet benchmark). Despite the additional overhead of trajectory generation, TrajViT trains faster, consumes less GPU memory, and performs faster inference for videos with more than 64 frames.
+        </div>
+      </div>
+    </div>
+    </div>
+    <br>
+    </section>
+    <br><br>
+
+
+
+<section>
+    <div class="columns is-centered has-text-centered">
+      <h2 class="title is-3">Scaling Behavior</h2>
+    </div>
+
+    <br>
+        <div>
+          <center>
+          <img src="static/images/scaling_behavior.png" width="900" class="interpolation-image" alt="Interpolate start reference image." />
+        </div>
+        </center>
+        <br>
+    <div class="container is-max-desktop">
+      <div class="columns is-centered has-text-centered">
+        <div class="content has-text-justified">
+          We show our method can scale as well as the standard vision transformer. Additionally,  <b>TrajViT can naturally process image data</b> by treating each image segment as a trajectory of length one while standard video transformer can not. This allows seamingless joint training with both videos and images. <b>Therefore, we see a bigger performance improvement for TrajViT when adding image data to pretraining corpus.</b>
+        </div>
+      </div>
+    </div>
+    </div>
+    <br>
+    </section>
+    <br><br>
+
+  
+
+<section>
+    <div class="columns is-centered has-text-centered">
+      <h2 class="title is-3">Application in VideoLLMs</h2>
+    </div>
+
+    <br>
+        <div>
+          <center>
+          <img src="static/images/videollm.png" class="interpolation-image" alt="Interpolate start reference image." />
+        </div>
+        </center>
+        <br>
+    <div class="container is-max-desktop">
+      <div class="columns is-centered has-text-centered">
+        <div class="content has-text-justified">
+          Lastly, we train two VideoLLMs by connecting Llama3 with TrajViT and ViT3D as video encoders. On six VideoQA benchmarks, the average accuracy of the TrajViT-LLM surpasses ViT3D-LLM by 5.24%, <b>while being trained 4x faster and running at 18x fewer inference FLOPs.</b>
+        </div>
+      </div>
+    </div>
+    </div>
+    <br>
+    </section>
+    <style>
+      .video-grid-two-cols {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        /* Two columns */
+        gap: 10px;
+        /* Gap between videos */
+        width: 60%;
+        /* Set the container width to 60% */
+        margin: 0 auto;
+        /* Center the container horizontally */
+      }
+
+      .video-grid-two-cols video {
+        width: 100%;
+        /* Videos fill the container width */
+        height: auto;
+      }
+
+      .interpolation-image {
+        width: 80%;
+        /* Videos fill the container width */
+        height: auto;
+      }
+    </style>
+
+    <section class="section" id="BibTeX">
+      <div class="container is-max-desktop content">
+        <h2 class="title is-3">BibTeX</h2>
+<pre><code>@article{zheng2025one,
+  title={One Trajectory, One Token: Grounded Video Tokenization via Panoptic Sub-object Trajectory},
+  author={Zheng, Chenhao and Zhang, Jieyu and Salehi, Mohammadreza and Gao, Ziqi and Iyengar, Vishnu and Kobori, Norimasa and Kong, Quan and Krishna, Ranjay},
+  journal={arXiv preprint arXiv:2505.23617},
+  year={2025}
+}
+</code></pre>
+      </div>
+    </section>
+
+
+
+    <!-- <footer class="footer">
+      <div align="center" class="container">
+        <div class="columns is-centered">
+          <div class="content">
+            This website is borrowed from <a href="https://github.com/nerfies/nerfies.github.io">nerfies</a>.
+          </div>
+        </div>
+      </div>
+    </footer>
+ -->
+
+</body>
+
+</html>
