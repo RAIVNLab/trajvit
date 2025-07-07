@@ -1,6 +1,6 @@
 # TrajViT
 
-#####  [One Trajectory, One Token: Grounded Video Tokenization via Panoptic Sub-object Trajectory](https://arxiv.org/abs/2505.23617), ICCV 2025
+##### [One Trajectory, One Token: Grounded Video Tokenization via Panoptic Sub-object Trajectory](https://arxiv.org/abs/2505.23617), ICCV 2025
 
 
 Official PyTorch code for TrajViT, an efficient video tokenization paradigm and a video transformer encoder. TrajViT tokenizes video with panoptic sub-object trajectories, significantly surpassing traditional way of space-time patch tokenization by a large margin in video understanding tasks while using 10x less tokens. 
