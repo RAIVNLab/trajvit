@@ -18,7 +18,6 @@ assets/
 vis/
 *.tar.gz
 *.zip
-*.json
 test*
 submit_jobs/
 data/videodata/
