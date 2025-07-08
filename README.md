@@ -34,8 +34,8 @@ wget -P checkpoints/ https://dl.fbaipublicfiles.com/segment_anything_2/092824/sa
 
 In your .bashrc file, set the environment variables:
 ```bash
-export SL_EXP_DIR="<path-to-trajvit-repo>/data"
-export SL_DATA_DIR="<path-to-trajvit-repo>/results"
+export SL_EXP_DIR="<path-to-trajvit-repo>/results"
+export SL_DATA_DIR="<path-to-trajvit-repo>/data"
 ```
 These variables are accessed by the yaml files in the [configs/](configs) directory and the shell scripts in [entry/run.sh](entry/run.sh).
 
