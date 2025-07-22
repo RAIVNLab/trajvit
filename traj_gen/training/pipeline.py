@@ -330,7 +330,7 @@ class TrajGenPipeline:
         input = BatchedVideoDatapoint(img_batch=img_batch, obj_to_frame_idx=obj_to_frame_idx, masks=masks_first_frame, metadata=None, dict_key="a")
         with torch.no_grad():
             output = self.tracker(input, backbone_input.store)
-        output_masks = torch.stack([(l['pred_masks_high_res']>0).squeeze() for l in output]) # [frame_number, n_object, h, w]
+        output_masks = torch.stack([(l['pred_masks_high_res']>0)[:,0] for l in output]) # [frame_number, n_object, h, w]
         return output_masks
         
 
@@ -338,17 +338,16 @@ class TrajGenPipeline:
         """generate panoptic trajectory for a video
 
         Args:
-            video (np.array): shape (T,W,H,C)
+            video (np.array): shape (T,W,H,C) | (torch.tensor): shape (T,C,H,W)
             video_path (str)
             use_key_frame_selection (bool, optional)
         """
-        
-        T, W, H, _ = video.shape
         
         if type(video) == np.ndarray: 
             video = self.preprocess_video(video)
         video = video.cuda()
         
+        T, _, W, H = video.shape
         
         # TODO: key frame detection
         # print("run key frame selection")

@@ -27,7 +27,7 @@ def process_one_video(data_dict: dict, traj_gen: TrajGenPipeline,  args, verbose
     mask, graph = traj_gen.traj_generation(video=video, video_path=video_path, use_key_frame_selection=args.use_key_frame, save_to_disk=True, version_ext=args.version_ext, verbose=verbose)
 
     if args.visualize:
-        traj_gen.visualize(video, video_graph=graph, return_masks=mask, 
+        traj_gen.visualize(save_video, video_graph=graph, return_masks=mask, 
             visualize_dir=args.visualize_dir, video_name=video_name, )
     
     
