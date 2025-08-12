@@ -10,10 +10,9 @@ Official PyTorch code for TrajViT, an efficient video tokenization paradigm and 
 </p>
 
 #### TODO
-- [ ] support joint training on image data
+- [x] support joint training on image data
+- [x] release model checkpoints
 - [ ] support attentive probing evaluations on action classification and localization tasks
-- [ ] release model checkpoints
-- [ ] instruction on using panda-70m training set
 
 ## Setup
 
@@ -52,6 +51,9 @@ to get the result. If you want to visualize the generate trajectories, you can a
 python demo.py --video_path example/example.mp4 --visualize_tracks
 ```
 
+## Model Checkpoint
+
+Our TrajViT checkpoint can be found [here](https://drive.google.com/file/d/1YOjbVkcdOdcUbuG1M4Q5Uxo0ZbL-k_3N/view?usp=sharing). It uses transformer size of ViT-large, and is trained on large scale video dataset (panda-10m) and image datasets (datacomp50m) with 30 epochs. 
 
 ## Download training/eval data and pre-generate trajectories
 
