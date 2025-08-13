@@ -44,11 +44,11 @@ These variables are accessed by the yaml files in the [configs/](configs) direct
 ## Demo
 We wrote a demo code in [demo.py] that demonstrates how our model can be used to inference a video. Simply run
 ```python
-python demo.py --video_path example/example.mp4
+python demo.py --video_path example/example.mp4 --ckpt_path <path-to-trajvit-checkpoint>
 ```
 to get the result. If you want to visualize the generate trajectories, you can additionally pass in argument:
 ```bash
-python demo.py --video_path example/example.mp4 --visualize_tracks
+python demo.py --video_path example/example.mp4 --ckpt_path <path-to-trajvit-checkpoint> --visualize_tracks
 ```
 
 ## Model Checkpoint
