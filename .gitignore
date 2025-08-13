@@ -10,7 +10,6 @@ coco/
 *.sif
 *.def
 wandb/
-run*
 tfrecords/
 checkpoints/*.pt
 exp*.md

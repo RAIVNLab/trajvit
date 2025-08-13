@@ -118,7 +118,7 @@ if __name__ == "__main__":
     parser.add_argument('--traj_gen_resolution', type=int, default=512, help='Resolution for trajectory generation.')
     parser.add_argument('--inference_resolution', type=int, default=224, help='Resolution for inference.')
     parser.add_argument('--mask_res_down_factor', type=int, default=4, help='Downscale factor for mask resolution.')
-    parser.add_argument('--vittok_ckpt_path', type=str, default=None, help='Path to ViTtok checkpoint.')
+    parser.add_argument('--ckpt_path', type=str, default=None, help='Path to trajvit checkpoint.')
     parser.add_argument('--visualize_tracks', default=False, action='store_true', help='visualize generated trajectories')
 
     args = parser.parse_args()
@@ -156,7 +156,7 @@ if __name__ == "__main__":
     vittok = init_traj_vit()
     
     # load pretrained model
-    vittok = load_pretrained(vittok, pretrained=args.vittok_ckpt_path).eval().cuda()
+    vittok = load_pretrained(vittok, pretrained=args.ckpt_path).eval().cuda()
     
     # init image transformation (Test time)
     transform = create_transform(image_size=args.inference_resolution)
