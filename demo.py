@@ -56,7 +56,7 @@ def load_pretrained(
         return encoder
     
     logger.info(f'Loading pretrained model from {pretrained}')
-    checkpoint = torch.load(pretrained, map_location='cpu')
+    checkpoint = torch.load(pretrained, map_location='cpu', weights_only=False)
     
     pretrained_dict = checkpoint[checkpoint_key]
 

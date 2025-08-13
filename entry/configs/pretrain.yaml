@@ -94,7 +94,7 @@ traj_model:
   embed_dim: 512
 traj_pos:
   model_type: perceiver  #  mlp, sincos
-  use_bounding_box: false
+  use_bounding_box: true
 perceiver:
   num_latent: 1
   depth: 2
@@ -127,7 +127,7 @@ optimizer:
   lr: 1e-4
   opt_betas: [0.9, 0.999]  # default
   weight_decay: 0.02
-  max_grad_norm: 1  # requires a positive float, use -1 to disable
+  max_grad_norm: 10  # requires a positive float, use -1 to disable
   different_lr:  # use a different lr for some modules, e.g., larger lr for new modules
     enable: False
     module_names: [temporal_vision_encoder, ]
