@@ -50,11 +50,10 @@ train_corpus: basedata
 train_file: ${available_corpus[${train_corpus}]}
 test_corpus: all
 test_file:
-  activitynet: ['${available_corpus.activitynet_test}', false]
-  msrvtt: ['${available_corpus.msrvtt_test}', false]
-  charade: ['${available_corpus.charade_test}', false]
+  activitynet_test: ['${available_corpus.activitynet_test}', false]
+  msrvtt_test: ['${available_corpus.msrvtt_test}', false]
+  charade_test: ['${available_corpus.charade_test}', false]
 test_file_image:
-  imagenet_val: ['${available_corpus.imagenet_test}', true]
   coco_val: ['${available_corpus.coco_val}', false]
 
 

@@ -77,7 +77,7 @@ def train(model, train_loaders, optimizer, tokenizer, epoch, global_step, device
             masks_enc = None
 
         image = image.to(device, non_blocking=True)
-        if config.vit_type == 'vittok':
+        if config.vit_type == 'trajvit':
             segment = segment.to(device, non_blocking=True)
             graph = graph.to(device, non_blocking=True)
             num_tokens = num_tokens.to(device, non_blocking=True)
@@ -142,7 +142,7 @@ def eval_train(model, eval_loaders, tokenizer, global_step, device, config):
             # print("forwarding", i)
 
         image = image.to(device, non_blocking=True)
-        if config.vit_type == 'vittok':
+        if config.vit_type == 'trajvit':
             segment = segment.to(device, non_blocking=True)
             graph = graph.to(device, non_blocking=True)
             num_tokens = num_tokens.to(device, non_blocking=True)
@@ -186,7 +186,7 @@ def setup_dataloaders(config, mode="pt", finetune_stage=False):
     
     if finetune_stage: config.mask_ratio = 0
     if config.mask_ratio > 0:
-        if config.vit_type == 'vittok': 
+        if config.vit_type == 'trajvit': 
             mask_collate_cls = RandomMaskCollator
         elif config.vit_type == 'vit3d': 
             mask_collate_cls = TubeMaskCollator
@@ -252,9 +252,7 @@ def main(config):
         run = setup_wandb(config, eval=True)
         
     config.optimizer.lr = config.optimizer.lr / 10
-    
-    if config.vit_type == 'vit3d': config.pretrained_path = '/weka/chenhaoz/home/videotok/results/ckpts/pt_panda_1m/panda_1m_2025_vit3d/ckpt_29.pth'
-    elif config.vit_type == 'vittok': config.pretrained_path = '/weka/chenhaoz/home/videotok/results/ckpts/pt_panda_4m/panda_4m_cny_vittok/ckpt_29.pth'
+
     # logger.info(f"config: \n{config}")
     logger.info(f"train_file: {config.train_file}")
 
@@ -274,7 +272,7 @@ def main(config):
     # https://discuss.pytorch.org/t/what-does-torch-backends-cudnn-benchmark-do/5936/3
     cudnn.benchmark = len(train_media_types) == 1
 
-    if config.vit_type == 'vittok': model_cls = VideoTokCLIP
+    if config.vit_type == 'trajvit': model_cls = VideoTokCLIP
     elif config.vit_type == 'vit3d': model_cls = VideoViT
     else: model_cls = Singularity
     

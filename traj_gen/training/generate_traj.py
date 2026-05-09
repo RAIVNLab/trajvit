@@ -1,10 +1,13 @@
 import os
+import sys
+sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+
 import torch
 import torch.nn.functional as F
 import imageio
 import argparse
-from pipeline import TrajGenPipeline
-from ds import RegularVideoLoader
+from training.pipeline import TrajGenPipeline
+from training.ds import RegularVideoLoader
 
 
 

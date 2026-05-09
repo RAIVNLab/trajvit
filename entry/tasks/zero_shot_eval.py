@@ -46,7 +46,7 @@ def test_example_ret(model, test_name2loaders, tokenizer, device, config):
                 caption, padding="max_length", truncation=True,
                 max_length=config.max_txt_l[media_type], return_tensors="pt"
             ).to(device)  # change from "longest" to "max_length"
-            if config.vit_type == 'vittok':
+            if config.vit_type == 'trajvit':
                 segment = segment.to(device, non_blocking=True)
                 graph = graph.to(device, non_blocking=True)
                 
@@ -130,7 +130,7 @@ def main(config):
     test_name2loaders, ret_name2loaders = setup_dataloaders(config, mode="pt")
     
 
-    if config.vit_type == 'vittok': model_cls = VideoTokCLIP
+    if config.vit_type == 'trajvit': model_cls = VideoTokCLIP
     elif config.vit_type == 'vit3d': model_cls = VideoViT
     else: model_cls = Singularity
     
